@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns="http://www.w3.org/1999/XSL/Transform"
+    android:id="@+id/nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/watchlistFragment"
+        android:name="com.souvik.cryptoapp.fragments.WatchlistFragment"
+        android:label="fragment_watchlist"
+        tools:layout="@layout/fragment_watchlist" />
+    <fragment
+        android:id="@+id/marketsFragment"
+        android:name="com.souvik.cryptoapp.fragments.MarketsFragment"
+        android:label="fragment_markets"
+        tools:layout="@layout/fragment_markets" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.souvik.cryptoapp.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
 
 </navigation>
