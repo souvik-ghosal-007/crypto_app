@@ -15,9 +15,6 @@ class MarketAdapter(var context: Context, var list: List<CryptoCurrency >): Recy
 
     inner class MarketViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val binding = CurrencyItemLayoutBinding.bind(view)
-
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarketViewHolder {
