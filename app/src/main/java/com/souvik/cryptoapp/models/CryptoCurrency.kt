@@ -1,5 +1,7 @@
 package com.souvik.cryptoapp.models
 
+import java.io.Serializable
+
 data class CryptoCurrency(
     val auditInfoList: List<AuditInfo>,
     val circulatingSupply: Double,
@@ -19,4 +21,4 @@ data class CryptoCurrency(
     val symbol: String,
     val tags: List<String>,
     val totalSupply: Double
-)
+) : Serializable

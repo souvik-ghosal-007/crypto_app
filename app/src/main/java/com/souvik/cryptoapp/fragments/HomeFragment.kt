@@ -7,17 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import com.souvik.cryptoapp.R
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayoutMediator
+import com.souvik.cryptoapp.adapter.TopLossGainPagerAdapter
 import com.souvik.cryptoapp.adapter.TopMarketAdapter
 import com.souvik.cryptoapp.api.ApiInterface
 import com.souvik.cryptoapp.api.ApiUtilities
 import com.souvik.cryptoapp.databinding.FragmentHomeBinding
-import com.souvik.cryptoapp.models.MarketModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.Response
 
 class HomeFragment : Fragment() {
 
@@ -28,8 +27,41 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater)
 
         getTopCurrencyList()
+        setTabLayout()
 
         return binding.root
+    }
+
+    private fun setTabLayout() {
+
+        val adapter = TopLossGainPagerAdapter(this)
+
+        binding.contentViewPager.adapter = adapter
+
+        binding.contentViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                if(position == 0) {
+                    binding.topGainIndicator.visibility = View.VISIBLE
+                    binding.topLoseIndicator.visibility = View.GONE
+                }
+                else {
+                    binding.topGainIndicator.visibility = View.GONE
+                    binding.topLoseIndicator.visibility = View.VISIBLE
+                }
+            }
+        })
+
+        TabLayoutMediator(binding.tabLayout, binding.contentViewPager) { tab, position ->
+                val title = if (position == 0) {
+                    "Top Gainers"
+                } else {
+                    "Top Losers"
+                }
+
+                tab.text = title
+        }.attach()
     }
 
     private fun getTopCurrencyList() {
